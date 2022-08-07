@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components';
+
 import { Logout as LogoutImg } from './svg';
 import LogoImgSrc from '../assets/img/logo.png';
 
@@ -32,9 +33,8 @@ interface HeaderProps {
 const Root = styled.header`
   display: flex;
   justify-content: space-between;
-  height: 8vh;
   align-items: center;
-  padding: 20px 120px;
+  padding: 10px 120px;
   border-bottom: 1px solid #efefef;
 `;
 const Logo = styled.div`

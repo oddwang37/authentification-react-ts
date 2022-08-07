@@ -2,13 +2,13 @@ import { FC, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 const Button: FC<ButtonProps> = (props) => {
-	return (<Root {...props}>{props.children}</Root>)
-}
+  return <Root {...props}>{props.children}</Root>;
+};
 
-export default Button
+export default Button;
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	children: string;
+  children: string;
 }
 
 const Root = styled.button`
@@ -24,5 +24,10 @@ const Root = styled.button`
   border: none;
   cursor: pointer;
   font-family: 'Gilroy';
-
+  font-weight: 700;
+  &:hover {
+    border: 2px solid #466efa;
+    background-color: rgba(0, 0, 0, 0);
+    color: #466efa;
+  }
 `;
