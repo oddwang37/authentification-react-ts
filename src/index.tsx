@@ -27,8 +27,6 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/profile" element={<MyProfile />} />
     </Routes>
     <GlobalStyles />
     <FontStyles />

@@ -29,11 +29,11 @@ interface HeaderProps {
   username?: string;
 }
 
-const Root = styled.div`
+const Root = styled.header`
   display: flex;
   justify-content: space-between;
+  height: 8vh;
   align-items: center;
-  height: 80px;
   padding: 20px 120px;
   border-bottom: 1px solid #efefef;
 `;
