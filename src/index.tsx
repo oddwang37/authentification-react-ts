@@ -4,11 +4,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 
 import App from './App';
-import { SignUp } from './pages';
+import { SignUp, MyProfile } from './pages';
+import FontStyles from './assets/fonts/fonts.js';
 
 const GlobalStyles = createGlobalStyle`
   body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Gilroy, Arial, Helvetica, sans-serif;
     color: #0b1332;
     }
   * {
@@ -27,7 +28,9 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/profile" element={<MyProfile />} />
     </Routes>
     <GlobalStyles />
+    <FontStyles />
   </BrowserRouter>,
 );

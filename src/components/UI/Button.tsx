@@ -23,4 +23,6 @@ const Root = styled.button`
   color: #fff;
   border: none;
   cursor: pointer;
+  font-family: 'Gilroy';
+
 `;
