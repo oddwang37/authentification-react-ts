@@ -1,5 +1,7 @@
 import { FC, InputHTMLAttributes } from 'react';
+import { UseFormRegister, FieldValues } from 'react-hook-form';
 import styled from 'styled-components';
+
 import ErrorMessage from './ErrorMessage';
 
 const Input: FC<InputProps> = ({ register, rules, name, error, label, ...rest }) => {
@@ -19,12 +21,14 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   rules?: Object;
   label?: string;
   error?: string;
-  register?: any;
+  register: RegisterType;
 }
 
 interface InputStyledProps {
   error?: string;
 }
+
+type RegisterType = UseFormRegister<FieldValues>;
 
 const Root = styled.div`
   display: flex;

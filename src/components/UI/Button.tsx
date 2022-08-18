@@ -25,6 +25,7 @@ const Root = styled.button`
   cursor: pointer;
   font-family: 'Gilroy';
   font-weight: 700;
+  transition: 0.3s all;
   &:hover {
     border: 2px solid #466efa;
     background-color: rgba(0, 0, 0, 0);

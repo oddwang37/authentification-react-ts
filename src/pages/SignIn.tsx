@@ -1,24 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { FormContainer, Input, Button} from '../components';
+import { useAppDispatch } from '../redux/store';
+import { RootState } from '../redux/store';
+import { loginUser } from '../redux/authSlice';
+
+import { FormContainer, Input, Button } from '../components';
 
 const SignIn = () => {
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  let navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
-  const onSubmit = handleSubmit((data) => alert(JSON.stringify(data)));
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/', { replace: true });
+    }
+  }, [isAuth]);
+  const onSubmit = handleSubmit((data) => {
+    dispatch(loginUser(data)).then(() => navigate('/', { replace: true }));
+  });
 
   return (
     <Root>
       <FormContainer title="Авторизация">
         <form onSubmit={onSubmit}>
-          <Input register={register} name="email" error={errors.email?.message} label="Электронная почта" placeholder="example@mail.ru"/>
-          <Input register={register} name="password" error={errors.password?.message} label="Пароль" type="password" placeholder="Введите 8-значный пароль"/>
+          <Input
+            register={register}
+            name="email"
+            error={errors.email?.message}
+            label="Электронная почта"
+            placeholder="example@mail.ru"
+          />
+          <Input
+            register={register}
+            name="password"
+            error={errors.password?.message}
+            label="Пароль"
+            type="password"
+            placeholder="Введите 8-значный пароль"
+          />
           <Button>Продолжить</Button>
         </form>
         <LinkWrapper>
@@ -42,18 +71,6 @@ export const Root = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 28px;
-`;
-
-const Label = styled.label`
-  font-size: 12px;
-  line-height: 16px;
 `;
 
 export const LinkWrapper = styled.div`

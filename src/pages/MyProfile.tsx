@@ -1,37 +1,44 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { GlobalContainer, Banner } from '../components';
 import { Pencil } from '../components/svg';
 import { Accordion } from '../components';
+import { RootState } from '../redux/store';
 
 const MyProfile = () => {
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+
   return (
     <GlobalContainer>
       <>
         <section>
           <ProfileWrapper>
             <Heading>Мой профиль</Heading>
-            <EditWrapper>
-              <Pencil />
-              <EditText>Редактировать</EditText>
-            </EditWrapper>
+            <Link to="/signin">
+              <EditWrapper>
+                <Pencil />
+                <EditText>Редактировать</EditText>
+              </EditWrapper>
+            </Link>
           </ProfileWrapper>
           <InfoItems>
             <InfoItem>
               <InfoItemName>Имя</InfoItemName>
-              <InfoItemValue>Владислав</InfoItemValue>
+              <InfoItemValue>{userInfo?.name}</InfoItemValue>
             </InfoItem>
             <InfoItem>
               <InfoItemName>Фамилия</InfoItemName>
-              <InfoItemValue>Селиванов</InfoItemValue>
+              <InfoItemValue>{userInfo?.surname}</InfoItemValue>
             </InfoItem>
             <InfoItem>
               <InfoItemName>Телефон</InfoItemName>
-              <InfoItemValue>+7-996-394-22-82</InfoItemValue>
+              <InfoItemValue>{userInfo?.phone}</InfoItemValue>
             </InfoItem>
             <InfoItem>
               <InfoItemName>Электронная почта</InfoItemName>
-              <InfoItemValue>vladislove1217@gmail.com</InfoItemValue>
+              <InfoItemValue>{userInfo?.email}</InfoItemValue>
             </InfoItem>
           </InfoItems>
         </section>

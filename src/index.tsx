@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 
 import App from './App';
-import { SignUp, MyProfile } from './pages';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 import FontStyles from './assets/fonts/fonts.js';
 
 const GlobalStyles = createGlobalStyle`
@@ -24,11 +25,11 @@ const GlobalStyles = createGlobalStyle`
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-    </Routes>
-    <GlobalStyles />
-    <FontStyles />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+      <GlobalStyles />
+      <FontStyles />
+    </BrowserRouter>
+  </Provider>,
 );

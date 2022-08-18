@@ -1,34 +1,45 @@
-import { FC } from 'react';
 import styled from 'styled-components';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '../redux/store';
 import { Logout as LogoutImg } from './svg';
 import LogoImgSrc from '../assets/img/logo.png';
 
-const Header: FC<HeaderProps> = ({ username }) => {
+import LogoutConfirmModal from './LogoutConfirmModal';
+
+const Header = () => {
+  const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
+  const changeModalIsOpen = (value: boolean) => {
+    setModalIsOpen(value);
+  };
+
   return (
     <Root>
       <Logo>
         <LogoImg src={LogoImgSrc} alt="purrweb logo with two purple slashes" />
         <LogoText>Purrweb</LogoText>
       </Logo>
-      {username && (
+      {userInfo && (
         <UserWrapper>
-          <Username>{username}</Username>
-          <Logout>
+          <Username>
+            {userInfo.name} {userInfo.surname}
+          </Username>
+          <Logout onClick={() => changeModalIsOpen(true)}>
             <LogoutImg />
             <LogoutText>Выйти</LogoutText>
           </Logout>
         </UserWrapper>
       )}
+      <LogoutConfirmModal changeModalIsOpen={changeModalIsOpen} isOpen={modalIsOpen} />
     </Root>
   );
 };
 
 export default Header;
-
-interface HeaderProps {
-  username?: string;
-}
 
 const Root = styled.header`
   display: flex;
@@ -60,6 +71,7 @@ const Username = styled.div`
 const Logout = styled.div`
   display: flex;
   gap: 8px;
+  cursor: pointer;
 `;
 const LogoutText = styled.div`
   color: #466efa;
