@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { logoutUser } from '../redux/authSlice';
 import { useAppDispatch } from '../redux/store';
@@ -13,12 +14,15 @@ const LogoutConfirmModal: FC<PropsType> = ({ changeModalIsOpen, isOpen }) => {
   const closeModal = () => changeModalIsOpen(false);
 
   const onConfirm = () => {
+    toast.info('Выходим...');
     try {
       dispatch(logoutUser());
       navigate('/signin', { replace: true });
       closeModal();
+      toast.success('Вы успешно вышли из профиля!');
     } catch (error) {
       closeModal();
+      toast.error('Выйти не удалось :( Пожалуйста, попробуйте позже');
     }
     closeModal();
   };

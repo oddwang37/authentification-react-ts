@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { GlobalContainer, Banner } from '../components';
@@ -16,12 +15,10 @@ const MyProfile = () => {
         <section>
           <ProfileWrapper>
             <Heading>Мой профиль</Heading>
-            <Link to="/signin">
-              <EditWrapper>
-                <Pencil />
-                <EditText>Редактировать</EditText>
-              </EditWrapper>
-            </Link>
+            <EditWrapper>
+              <Pencil />
+              <EditText>Редактировать</EditText>
+            </EditWrapper>
           </ProfileWrapper>
           <InfoItems>
             <InfoItem>

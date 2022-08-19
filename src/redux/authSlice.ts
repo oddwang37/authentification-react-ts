@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 import instance from '../services/axios';
 import { UserInfo, UserInfoResponse } from '../models/User';
@@ -46,13 +47,10 @@ export const logoutUser = createAsyncThunk('auth/logout', async () => {
   return result.data;
 });
 
-export const checkAuth = createAsyncThunk(
-  'auth/check',
-  async (): Promise<AxiosResponse<{ accessToken: string }>> => {
-    const result = await instance.get('auth/refresh');
-    return result;
-  },
-);
+export const checkAuth = createAsyncThunk('auth/check', async () => {
+  const result = await instance.get('auth/refresh');
+  return result.data;
+});
 
 export const getUserInfo = createAsyncThunk('users/id', async (id: string) => {
   // Axios суёт символы процента в параметры запроса, делаю свой serializer
@@ -60,7 +58,7 @@ export const getUserInfo = createAsyncThunk('users/id', async (id: string) => {
   const result = await axios.get(
     `http://test-task-second-chance-env.eba-ymma3p3b.us-east-1.elasticbeanstalk.com/users/${id}`,
   );
-  return result;
+  return result.data;
 });
 
 export const authSlice = createSlice({
@@ -68,9 +66,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(loginUser.pending, (state, action) => {
-      alert('Работаем');
-    });
+    builder.addCase(loginUser.pending, (state, action) => {});
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
@@ -78,25 +74,20 @@ export const authSlice = createSlice({
       // пару токенов при недействительности accessToken
       localStorage.setItem('accessToken', action.payload.accessToken);
       localStorage.setItem('refreshToken', action.payload.refreshToken);
-      alert(JSON.stringify(action.payload));
       state.isAuth = true;
     });
-    builder.addCase(loginUser.rejected, (state, action) => {
-      throw new Error('Ошибка авторизации');
-    });
-    builder.addCase(registerUser.pending, (state, action) => {
-      alert('Регистрация...');
-    });
+    builder.addCase(loginUser.rejected, (state, action) => {});
+    builder.addCase(registerUser.pending, (state, action) => {});
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.userInfo = action.payload;
+      // Сохраняем id в localStorage, чтобы получать из него информацию о пользователе,
+      // так как нет возможности получить id или информацию о пользователе иначе
       localStorage.setItem('id', action.payload.id);
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       console.log(action);
     });
-    builder.addCase(logoutUser.pending, () => {
-      alert('Выходим...');
-    });
+    builder.addCase(logoutUser.pending, () => {});
     builder.addCase(logoutUser.fulfilled, (state) => {
       state.accessToken = '';
       state.refreshToken = '';
@@ -105,22 +96,19 @@ export const authSlice = createSlice({
       state.isAuth = false;
       localStorage.setItem('accessToken', '');
       localStorage.setItem('refreshToken', '');
-      alert('Успешно вышли');
     });
     builder.addCase(logoutUser.rejected, () => {
       throw new Error('Ошибка выхода');
     });
-    builder.addCase(checkAuth.pending, () => {
-      alert('Обновляем токен...');
-    });
+    builder.addCase(checkAuth.pending, () => {});
     builder.addCase(checkAuth.fulfilled, (state, action) => {
-      state.accessToken = action.payload.data.accessToken;
-      localStorage.setItem('accessToken', action.payload.data.accessToken);
+      state.accessToken = action.payload.accessToken;
+      localStorage.setItem('accessToken', action.payload.accessToken);
       state.isAuth = true;
     });
     builder.addCase(checkAuth.rejected, (state, action) => {});
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
-      state.userInfo = action.payload.data;
+      state.userInfo = action.payload;
     });
   },
 });

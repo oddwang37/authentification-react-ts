@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { useAppDispatch, RootState } from '../redux/store';
 import { registerUser, loginUser } from '../redux/authSlice';
@@ -37,11 +38,18 @@ const SignUp = () => {
   }, [isAuth]);
 
   const onSubmit = handleSubmit((data) => {
+    toast.info('Регистрируем нового пользователя');
     const { email, password, name, surname, phone } = data;
     dispatch(registerUser({ email, password, name, surname, phone }))
       .unwrap()
       .then((res) => {
         dispatch(loginUser({ email, password }));
+      })
+      .then(() => {
+        toast.success('Вы успешно зарегистрировались!');
+      })
+      .catch(() => {
+        toast.error('Ошибка регистрации! Пожалуйста, попробуйте позже');
       });
   });
 

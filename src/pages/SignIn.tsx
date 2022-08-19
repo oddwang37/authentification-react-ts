@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { useAppDispatch } from '../redux/store';
 import { RootState } from '../redux/store';
-import { loginUser } from '../redux/authSlice';
+import { loginUser, getUserInfo } from '../redux/authSlice';
 
 import { FormContainer, Input, Button } from '../components';
 
@@ -26,7 +27,22 @@ const SignIn = () => {
     }
   }, [isAuth]);
   const onSubmit = handleSubmit((data) => {
-    dispatch(loginUser(data)).then(() => navigate('/', { replace: true }));
+    toast.info('Авторизуемся...');
+    dispatch(loginUser(data))
+      .unwrap()
+      .then(() => {
+        // Получаем информаицю о пользователе с помощью id из localStorage,
+        // поскольку login возвращает только токены
+        const id = localStorage.getItem('id');
+        if (id) {
+          dispatch(getUserInfo(id));
+        }
+      })
+      .then(() => {
+        navigate('/', { replace: true });
+        toast.success('Вы успешно авторизовались!');
+      })
+      .catch(() => toast.error('Ошибка авторизации :('));
   });
 
   return (
