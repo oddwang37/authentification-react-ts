@@ -18,8 +18,8 @@ const SignIn = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    formState: { errors, isValid },
+  } = useForm<FormData>({ mode: 'onChange' });
 
   useEffect(() => {
     if (isAuth) {
@@ -55,6 +55,14 @@ const SignIn = () => {
             error={errors.email?.message}
             label="Электронная почта"
             placeholder="example@mail.ru"
+            rules={{
+              required: 'Необходимо ввести e-mail',
+              pattern: {
+                value:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: 'Неправильный email',
+              },
+            }}
           />
           <Input
             register={register}
@@ -63,8 +71,12 @@ const SignIn = () => {
             label="Пароль"
             type="password"
             placeholder="Введите 8-значный пароль"
+            rules={{
+              required: 'Необходимо ввести пароль',
+              minLength: { value: 6, message: 'Пароль должен состоять минимум из 6 символов' },
+            }}
           />
-          <Button>Продолжить</Button>
+          <Button inactive={!isValid}>Продолжить</Button>
         </form>
         <LinkWrapper>
           <div>Ещё нет аккаунта?</div>

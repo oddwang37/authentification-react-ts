@@ -2,19 +2,27 @@ import { FC, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 const Button: FC<ButtonProps> = (props) => {
-  return <Root {...props}>{props.children}</Root>;
+  return (
+    <Root {...props} disabled={props.inactive}>
+      {props.children}
+    </Root>
+  );
 };
 
 export default Button;
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: string;
+  inactive?: boolean;
 }
 
-const Root = styled.button`
+type RootProps = {
+  inactive?: boolean;
+};
+const Root = styled.button<RootProps>`
   width: 280px;
   height: 52px;
-  background-color: #466efa;
+  background-color: ${(p) => (p.inactive ? '#E5EBFF' : '#466efa')};
   padding: 14px 20px;
   border-radius: 12px;
   text-align: center;
@@ -26,9 +34,13 @@ const Root = styled.button`
   font-family: 'Gilroy';
   font-weight: 700;
   transition: 0.3s all;
+  ${(p) =>
+    p.inactive
+      ? ''
+      : `
   &:hover {
     border: 2px solid #466efa;
     background-color: rgba(0, 0, 0, 0);
     color: #466efa;
-  }
+  }`}
 `;

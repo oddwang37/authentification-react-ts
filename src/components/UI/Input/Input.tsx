@@ -31,22 +31,21 @@ interface InputStyledProps {
 type RegisterType = UseFormRegister<FieldValues>;
 
 const Root = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   margin-bottom: 28px;
 `;
 const Field = styled.input<InputStyledProps>`
   width: 280px;
   height: 48px;
   background-color: #f2f3f4;
-  border: ${(p) => (p.error ? '1px splid #f46666' : 'none')};
+  border: ${(p) => (p.error ? '1px solid #f46666' : 'none')};
   border-radius: 12px;
   padding: 14px 20px;
   font-family: 'Gilroy';
+  margin-bottom: ${(p) => (p.error ? 10 : 6)};
   &::placeholder {
     color: #717583;
   }
+  margin-top: 10px;
 `;
 const Label = styled.label`
   font-size: 12px;

@@ -26,8 +26,9 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+    watch,
+    formState: { errors, isValid },
+  } = useForm<FormData>({ mode: 'onChange' });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -69,6 +70,14 @@ const SignUp = () => {
                 error={errors.email?.message}
                 label="Электронная почта"
                 placeholder="example@mail.ru"
+                rules={{
+                  required: 'Необходимо ввести e-mail',
+                  pattern: {
+                    value:
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: 'Неправильный email',
+                  },
+                }}
               />
               <Input
                 register={register}
@@ -77,6 +86,14 @@ const SignUp = () => {
                 label="Пароль"
                 placeholder="Введите пароль"
                 type="password"
+                rules={{
+                  pattern: {
+                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/,
+                    message:
+                      'Пароль должен состоять минимум из 6-ти символов и содержать минимум одну цифрц и одну букву верхнего и нижнего регистров',
+                  },
+                  required: 'Необходимо ввести пароль',
+                }}
               />
               <Input
                 register={register}
@@ -85,6 +102,13 @@ const SignUp = () => {
                 label="Повтор пароля"
                 placeholder="Повторите пароль"
                 type="password"
+                rules={{
+                  validate: (val: string) => {
+                    if (watch('password') !== val) {
+                      return "Passwords don't match";
+                    }
+                  },
+                }}
               />
               <Button onClick={completeFormStep}>Продолжить</Button>
             </form>
@@ -105,6 +129,7 @@ const SignUp = () => {
                 error={errors.name?.message}
                 label="Имя"
                 placeholder="Введите имя"
+                rules={{ required: 'Введите имя' }}
               />
               <Input
                 register={register}
@@ -112,6 +137,7 @@ const SignUp = () => {
                 error={errors.surname?.message}
                 label="Фамилия"
                 placeholder="Введите фамилию"
+                rules={{ required: 'Введите фамилию' }}
               />
               <Input
                 register={register}
@@ -119,8 +145,9 @@ const SignUp = () => {
                 error={errors.phone?.message}
                 label="Телефон"
                 placeholder="+7 (333)-333-33-33"
+                rules={{ required: 'Введите номер телефона' }}
               />
-              <Button>Продолжить</Button>
+              <Button inactive={!isValid}>Продолжить</Button>
             </form>
           </FormContainer>
         </FormStep>
