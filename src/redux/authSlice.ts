@@ -79,9 +79,6 @@ export const authSlice = createSlice({
     builder.addCase(registerUser.pending, (state, action) => {});
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.userInfo = action.payload;
-      // Сохраняем id в localStorage, чтобы получать из него информацию о пользователе,
-      // так как нет возможности получить id или информацию о пользователе иначе
-      localStorage.setItem('id', action.payload.id);
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       console.log(action);

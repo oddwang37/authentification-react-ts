@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 import { useAppDispatch } from './redux/store';
 import { checkAuth, getUserInfo } from './redux/authSlice';
@@ -13,16 +13,12 @@ const App = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
       dispatch(checkAuth());
-      // Получаем id из localStorage полученного после регистрации
-      // чтобы получить информацию о пользователе
-      let id = localStorage.getItem('id');
-      if (id) {
-        dispatch(getUserInfo(id));
-      } else {
-        toast.error('Ошибка получения данных пользователя');
-      }
+      const { userId } = JSON.parse(window.atob(token.split('.')[1]));
+      console.log(userId);
+      dispatch(getUserInfo(userId));
     }
   });
 

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { RootState } from '../redux/store';
 import { Logout as LogoutImg } from './svg';
@@ -19,10 +20,12 @@ const Header = () => {
 
   return (
     <Root>
-      <Logo>
-        <LogoImg src={LogoImgSrc} alt="purrweb logo with two purple slashes" />
-        <LogoText>Purrweb</LogoText>
-      </Logo>
+      <Link to="/">
+        <Logo>
+          <LogoImg src={LogoImgSrc} alt="purrweb logo with two purple slashes" />
+          <LogoText>Purrweb</LogoText>
+        </Logo>
+      </Link>
       {userInfo && (
         <UserWrapper>
           <Username>
@@ -47,6 +50,7 @@ const Root = styled.header`
   align-items: center;
   padding: 10px 120px;
   border-bottom: 1px solid #efefef;
+  height: 5%;
 `;
 const Logo = styled.div`
   display: flex;

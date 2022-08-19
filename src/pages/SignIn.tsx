@@ -30,13 +30,10 @@ const SignIn = () => {
     toast.info('Авторизуемся...');
     dispatch(loginUser(data))
       .unwrap()
-      .then(() => {
-        // Получаем информаицю о пользователе с помощью id из localStorage,
-        // поскольку login возвращает только токены
-        const id = localStorage.getItem('id');
-        if (id) {
-          dispatch(getUserInfo(id));
-        }
+      .then((res) => {
+        const { accessToken } = res;
+        const { userId } = JSON.parse(window.atob(accessToken.split('.')[1]));
+        dispatch(getUserInfo(userId));
       })
       .then(() => {
         navigate('/', { replace: true });
@@ -95,10 +92,10 @@ type FormData = {
 };
 
 export const Root = styled.div`
-  min-height: 100vh;
+  min-height: 95%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding-top: 4%;
 `;
 
 export const LinkWrapper = styled.div`

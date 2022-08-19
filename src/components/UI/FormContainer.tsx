@@ -18,15 +18,15 @@ type FormContainerProps = {
 };
 
 const Root = styled.div`
-  width: 424px;
-  padding: 80px 72px 60px 72px;
+  padding: 5.5% 5%;
   box-shadow: 0px 12px 26px rgba(0, 0, 0, 0.1);
   border-radius: 24px;
+  width: 424px;
 `;
 
 const Title = styled.h1`
   font-size: 20px;
   font-weight: 500;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
   text-align: center;
 `;

@@ -6,7 +6,7 @@ import ErrorMessage from './ErrorMessage';
 
 const Input: FC<InputProps> = ({ register, rules, name, error, label, ...rest }) => {
   return (
-    <Root>
+    <Root error={error}>
       {label && <Label htmlFor={name}>{label}</Label>}
       <Field {...register(name, rules)} {...rest} error={error} />
       {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -30,11 +30,15 @@ interface InputStyledProps {
 
 type RegisterType = UseFormRegister<FieldValues>;
 
-const Root = styled.div`
-  margin-bottom: 28px;
+const Root = styled.div<InputStyledProps>`
+  margin-bottom: ${(p) => (p.error ? '4px' : '28px')};
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
 `;
 const Field = styled.input<InputStyledProps>`
-  width: 280px;
+  width: 100%;
   height: 48px;
   background-color: #f2f3f4;
   border: ${(p) => (p.error ? '1px solid #f46666' : 'none')};
@@ -45,9 +49,10 @@ const Field = styled.input<InputStyledProps>`
   &::placeholder {
     color: #717583;
   }
-  margin-top: 10px;
+  margin-top: 5px;
+  display: block;
+  min-width: 280px;
 `;
 const Label = styled.label`
   font-size: 12px;
-  line-height: 16px;
 `;

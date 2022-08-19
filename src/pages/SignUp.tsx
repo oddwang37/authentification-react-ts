@@ -7,9 +7,10 @@ import { toast } from 'react-toastify';
 
 import { useAppDispatch, RootState } from '../redux/store';
 import { registerUser, loginUser } from '../redux/authSlice';
+import { LeftArrow } from '../components/svg';
 
 import { Input, FormContainer, Button } from '../components';
-import { StyledLink, Root } from './SignIn';
+import { StyledLink } from './SignIn';
 
 type FormData = {
   email: string;
@@ -58,12 +59,16 @@ const SignUp = () => {
     setFormStep((step) => step + 1);
   };
 
+  const formStepBack = () => {
+    setFormStep((step) => step - 1);
+  }
+
   return (
     <Root>
       {formStep === 0 && (
         <FormStep>
           <FormContainer title="Регистрация">
-            <form onSubmit={onSubmit}>
+            <SForm onSubmit={onSubmit}>
               <Input
                 register={register}
                 name="email"
@@ -110,8 +115,8 @@ const SignUp = () => {
                   },
                 }}
               />
-              <Button onClick={completeFormStep}>Продолжить</Button>
-            </form>
+              <Button inactive={!!(errors?.email?.message || errors?.password?.message || errors?.repeatPassword?.message)}onClick={completeFormStep}>Продолжить</Button>
+            </SForm>
             <LinkWrapper>
               <div>Уже есть аккаунт?</div>
               <StyledLink to="/signin">Войти</StyledLink>
@@ -122,7 +127,7 @@ const SignUp = () => {
       {formStep === 1 && (
         <FormStep>
           <FormContainer title="Заполните данные о себе">
-            <form onSubmit={onSubmit}>
+            <SForm onSubmit={onSubmit}>
               <Input
                 register={register}
                 name="name"
@@ -148,7 +153,11 @@ const SignUp = () => {
                 rules={{ required: 'Введите номер телефона' }}
               />
               <Button inactive={!isValid}>Продолжить</Button>
-            </form>
+            </SForm>
+            <Back onClick={formStepBack}>
+              <LeftArrow />
+              <BackText>Назад</BackText>
+            </Back>
           </FormContainer>
         </FormStep>
       )}
@@ -158,7 +167,22 @@ const SignUp = () => {
 
 export default SignUp;
 
-const FormStep = styled.div``;
+export const Root = styled.div`
+  max-height: 90vh;
+  display: flex;
+  justify-content: center;
+`;
+
+
+const FormStep = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const SForm = styled.div`
+  width: 100%;
+`
 
 const LinkWrapper = styled.div`
   display: flex;
@@ -167,3 +191,18 @@ const LinkWrapper = styled.div`
   margin-top: 36px;
   font-size: 14px;
 `;
+
+const Back = styled.div`
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  top: 88px;
+  left: 152px;
+  cursor: pointer;
+  align-items: center;
+`
+const BackText = styled.div`
+  color: #6f7488;
+  font-size: 14px;
+  font-weight: 500;
+`
