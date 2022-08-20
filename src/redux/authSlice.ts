@@ -3,16 +3,7 @@ import axios from 'axios';
 
 import instance from '../services/axios';
 import { UserInfo, UserInfoResponse } from '../models/User';
-
-interface AuthInfo {
-  email: string;
-  password: string;
-}
-
-interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-}
+import { AuthInfo, LoginResponse } from '../models/Auth';
 
 export interface AuthState extends LoginResponse {
   errorMessage: string;
