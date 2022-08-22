@@ -22,11 +22,14 @@ const Root = styled.div`
   box-shadow: 0px 12px 26px rgba(0, 0, 0, 0.1);
   border-radius: 24px;
   width: 424px;
+  @media (max-width: 576px) {
+    padding: 80px 32px 60px 32px;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 20px;
   font-weight: 500;
-  margin-bottom: 24px;
+  margin-bottom: 48px;
   text-align: center;
 `;

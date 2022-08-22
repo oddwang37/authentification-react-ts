@@ -83,13 +83,18 @@ const Button = styled.button<ButtonProps>`
   font-family: Gilroy;
   border-radius: 12px;
   padding: 14px 0;
-
   border: none;
   cursor: pointer;
   &:hover {
     background-color: ${(p) => (p.filled ? '#dae2ff' : '#466efa')};
     color: ${(p) => (p.filled ? '#466efa' : '#fff')};
     outline: ${(p) => (p.filled ? '2px solid #466efa' : 'none')};
+  }
+  @media (max-width: 576px) {
+  &:hover
+    background-color: ${(p) => (p.filled ? '#466efa' : '#dae2ff')};
+    color: ${(p) => (p.filled ? '#fff' : '#466efa')};
+    outline: none;
   }
 `;
 

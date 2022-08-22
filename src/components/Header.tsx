@@ -11,6 +11,7 @@ import LogoutConfirmModal from './LogoutConfirmModal';
 
 const Header = () => {
   const userInfo = useSelector((state: RootState) => state.auth.userInfo);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
 
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
@@ -23,10 +24,10 @@ const Header = () => {
       <Link to="/">
         <Logo>
           <LogoImg src={LogoImgSrc} alt="purrweb logo with two purple slashes" />
-          <LogoText>Purrweb</LogoText>
+          <LogoText isAuth={isAuth}>Purrweb</LogoText>
         </Logo>
       </Link>
-      {userInfo && (
+      {isAuth && userInfo && (
         <UserWrapper>
           <Username>
             {userInfo.name} {userInfo.surname}
@@ -44,23 +45,36 @@ const Header = () => {
 
 export default Header;
 
+type LogoTextProps = {
+  isAuth: boolean;
+}
+
 const Root = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 120px;
   border-bottom: 1px solid #efefef;
-  height: 5%;
+  height: 80px;
+  @media (max-width: 576px) {
+    padding: 0 16px;
+  }
 `;
 const Logo = styled.div`
   display: flex;
   align-items: center;
   width: 120px;
   gap: 2px;
+  @media (max-width: 576px) {
+    width: auto;
+  }
 `;
-const LogoText = styled.div`
+const LogoText = styled.div<LogoTextProps>`
   font-size: 22px;
   font-weight: 500;
+  @media (max-width: 576px) {
+    display: ${p => p.isAuth ? 'none' : 'block'};
+  }
 `;
 const LogoImg = styled.img`
   margin-top: 6px;
@@ -68,6 +82,7 @@ const LogoImg = styled.img`
 const UserWrapper = styled.div`
   display: flex;
   gap: 20px;
+  align-items: center;
 `;
 const Username = styled.div`
   font-weight: 500;

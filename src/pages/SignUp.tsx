@@ -171,6 +171,7 @@ export const Root = styled.div`
   max-height: 90vh;
   display: flex;
   justify-content: center;
+  position: relative;
 `;
 
 
@@ -196,10 +197,14 @@ const Back = styled.div`
   display: flex;
   gap: 10px;
   position: absolute;
-  top: 88px;
+  top: 40px;
   left: 152px;
   cursor: pointer;
   align-items: center;
+  @media (max-width: 576px) {
+    left: 16px;
+    top: 20px;
+  }
 `
 const BackText = styled.div`
   color: #6f7488;

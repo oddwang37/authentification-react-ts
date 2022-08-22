@@ -67,6 +67,9 @@ const ProfileWrapper = styled.div`
   gap: 28px;
   align-items: center;
   margin-top: 48px;
+  @media (max-width: 576px) {
+    margin-top: 20px;
+  }
 `;
 const Heading = styled.h1`
   font-size: 36px;
@@ -78,23 +81,42 @@ const EditWrapper = styled.div`
 const EditText = styled.div`
   color: #466efa;
   font-weight: 500;
+  @media (max-width: 576px) {
+    display: none;
+  }
 `;
 const InfoItems = styled.div`
   margin-top: 36px;
   display: flex;
   gap: 60px;
+  flex-wrap: wrap;
+  @media (max-width: 576px) {
+    padding-right: 60px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 40px;
+  }
 `;
-const InfoItem = styled.div``;
+const InfoItem = styled.div`
+  width: auto;
+  display: inline-block;
+`;
 const InfoItemName = styled.div`
   color: #717583;
   font-size: 14px;
+
 `;
 const InfoItemValue = styled.div`
   font-weight: 500;
   margin-top: 6px;
+
 `;
 const FAQ = styled.section`
   margin-top: 72px;
+  @media (max-width: 576px) {
+    margin-top: 48px;
+  }
 `;
 const SecondHeading = styled.h2`
   font-weight: 700;

@@ -34,7 +34,6 @@ const Root = styled.div<InputStyledProps>`
   margin-bottom: ${(p) => (p.error ? '4px' : '28px')};
   display: flex;
   flex-direction: column;
-  gap: 10px;
   width: 100%;
 `;
 const Field = styled.input<InputStyledProps>`
@@ -49,9 +48,8 @@ const Field = styled.input<InputStyledProps>`
   &::placeholder {
     color: #717583;
   }
-  margin-top: 5px;
+  margin-top: 4px;
   display: block;
-  min-width: 280px;
 `;
 const Label = styled.label`
   font-size: 12px;

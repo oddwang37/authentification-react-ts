@@ -84,9 +84,7 @@ export const authSlice = createSlice({
       localStorage.setItem('accessToken', '');
       localStorage.setItem('refreshToken', '');
     });
-    builder.addCase(logoutUser.rejected, () => {
-      throw new Error('Ошибка выхода');
-    });
+    builder.addCase(logoutUser.rejected, () => {});
     builder.addCase(checkAuth.pending, () => {});
     builder.addCase(checkAuth.fulfilled, (state, action) => {
       state.accessToken = action.payload.accessToken;

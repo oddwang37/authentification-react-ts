@@ -20,7 +20,7 @@ type RootProps = {
   inactive?: boolean;
 };
 const Root = styled.button<RootProps>`
-  width: 280px;
+  width: 100%;
   height: 52px;
   background-color: ${(p) => (p.inactive ? '#E5EBFF' : '#466efa')};
   padding: 14px 20px;
