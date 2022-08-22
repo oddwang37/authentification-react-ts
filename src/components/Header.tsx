@@ -47,7 +47,7 @@ export default Header;
 
 type LogoTextProps = {
   isAuth: boolean;
-}
+};
 
 const Root = styled.header`
   display: flex;
@@ -56,11 +56,11 @@ const Root = styled.header`
   padding: 10px 120px;
   border-bottom: 1px solid #efefef;
   height: 80px;
+  @media (max-width: 992px) {
+    padding: 0 32px;
+  }
   @media (max-width: 576px) {
     padding: 0 16px;
-  }
-  @media (max-width: 768px) {
-    padding: 0 32px;
   }
 `;
 const Logo = styled.div`
@@ -76,7 +76,7 @@ const LogoText = styled.div<LogoTextProps>`
   font-size: 22px;
   font-weight: 500;
   @media (max-width: 576px) {
-    display: ${p => p.isAuth ? 'none' : 'block'};
+    display: ${(p) => (p.isAuth ? 'none' : 'block')};
   }
 `;
 const LogoImg = styled.img`

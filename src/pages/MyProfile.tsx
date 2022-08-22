@@ -97,9 +97,6 @@ const InfoItems = styled.div`
     grid-template-columns: 1fr 1fr;
     gap: 24px 40px;
   }
-  @media(max-width: 768px) {
-    gap: 
-  }
 `;
 const InfoItem = styled.div`
   width: auto;
@@ -108,12 +105,10 @@ const InfoItem = styled.div`
 const InfoItemName = styled.div`
   color: #717583;
   font-size: 14px;
-
 `;
 const InfoItemValue = styled.div`
   font-weight: 500;
   margin-top: 6px;
-
 `;
 const FAQ = styled.section`
   margin-top: 72px;

@@ -13,7 +13,7 @@ type GlobalContainerProps = {
 
 const Root = styled.div`
   margin: 0 120px;
-    @media (max-width: 768px) {
+  @media (max-width: 992px) {
     margin: 0 32px;
   }
   @media (max-width: 375px) {
