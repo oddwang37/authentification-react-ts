@@ -97,6 +97,9 @@ const InfoItems = styled.div`
     grid-template-columns: 1fr 1fr;
     gap: 24px 40px;
   }
+  @media(max-width: 768px) {
+    gap: 
+  }
 `;
 const InfoItem = styled.div`
   width: auto;

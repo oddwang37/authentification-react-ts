@@ -59,6 +59,9 @@ const Root = styled.header`
   @media (max-width: 576px) {
     padding: 0 16px;
   }
+  @media (max-width: 768px) {
+    padding: 0 32px;
+  }
 `;
 const Logo = styled.div`
   display: flex;

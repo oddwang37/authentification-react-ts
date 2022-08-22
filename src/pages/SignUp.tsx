@@ -172,6 +172,14 @@ export const Root = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
+  @media (max-width: 576px) {
+    padding-top: 50px;
+  }
+  @media (max-width: 768px) {
+    max-height: none;
+    padding-top: 56px;
+    padding-bottom: 50px;
+  }
 `;
 
 
@@ -204,6 +212,10 @@ const Back = styled.div`
   @media (max-width: 576px) {
     left: 16px;
     top: 20px;
+  }
+  @media (max-width: 768px) {
+    left: 32px;
+    top: 30px;
   }
 `
 const BackText = styled.div`

@@ -96,6 +96,10 @@ export const Root = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 4%;
+  @media (max-width: 768px) {
+    padding-top: 56px;
+    padding-bottom: 50px;
+  }
 `;
 
 export const LinkWrapper = styled.div`

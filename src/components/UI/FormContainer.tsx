@@ -22,8 +22,13 @@ const Root = styled.div`
   box-shadow: 0px 12px 26px rgba(0, 0, 0, 0.1);
   border-radius: 24px;
   width: 424px;
-  @media (max-width: 576px) {
+  padding: 80px 72px 60px 72px;
+  @media (max-width: 375px) {
     padding: 80px 32px 60px 32px;
+  }
+  @media (max-width: 576px) {
+    padding-left: 50px;
+    padding-right: 50px;
   }
 `;
 
