@@ -28,7 +28,7 @@ const SignUp = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isDirty },
   } = useForm<FormData>({ mode: 'onChange' });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -54,6 +54,10 @@ const SignUp = () => {
         toast.error('Ошибка регистрации! Пожалуйста, попробуйте позже');
       });
   });
+
+
+
+
 
   const completeFormStep = () => {
     setFormStep((step) => step + 1);
@@ -110,12 +114,12 @@ const SignUp = () => {
                 rules={{
                   validate: (val: string) => {
                     if (watch('password') !== val) {
-                      return "Passwords don't match";
+                      return "Пароли не совпадают";
                     }
                   },
                 }}
               />
-              <Button inactive={!!(errors?.email?.message || errors?.password?.message || errors?.repeatPassword?.message)}onClick={completeFormStep}>Продолжить</Button>
+              <Button type="button" inactive={!isValid || !isDirty} onClick={completeFormStep}>Продолжить</Button>
             </SForm>
             <LinkWrapper>
               <div>Уже есть аккаунт?</div>
@@ -152,7 +156,7 @@ const SignUp = () => {
                 placeholder="+7 (333)-333-33-33"
                 rules={{ required: 'Введите номер телефона' }}
               />
-              <Button inactive={!isValid}>Продолжить</Button>
+              <Button type="submit" onClick={onSubmit} inactive={!isValid}>Продолжить</Button>
             </SForm>
             <Back onClick={formStepBack}>
               <LeftArrow />
