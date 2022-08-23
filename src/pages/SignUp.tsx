@@ -94,7 +94,7 @@ const SignUp = () => {
                 error={errors.password?.message}
                 label="Пароль"
                 placeholder="Введите пароль"
-                type="password"
+                isTypePassword={true}
                 rules={{
                   pattern: {
                     value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/,
@@ -110,7 +110,7 @@ const SignUp = () => {
                 error={errors.repeatPassword?.message}
                 label="Повтор пароля"
                 placeholder="Повторите пароль"
-                type="password"
+                isTypePassword={true}
                 rules={{
                   validate: (val: string) => {
                     if (watch('password') !== val) {
@@ -176,13 +176,13 @@ export const Root = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
-  @media (max-width: 576px) {
-    padding-top: 50px;
-  }
   @media (max-width: 768px) {
     max-height: none;
     padding-top: 56px;
     padding-bottom: 50px;
+  }
+  @media (max-width: 576px) {
+    padding-top: 50px;
   }
 `;
 

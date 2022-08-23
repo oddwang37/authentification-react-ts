@@ -66,7 +66,7 @@ const SignIn = () => {
             name="password"
             error={errors.password?.message}
             label="Пароль"
-            type="password"
+            isTypePassword={true}
             placeholder="Введите 8-значный пароль"
             rules={{
               required: 'Необходимо ввести пароль',

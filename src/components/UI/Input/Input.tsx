@@ -1,15 +1,32 @@
-import { FC, InputHTMLAttributes } from 'react';
+import { FC, InputHTMLAttributes, useEffect, useState } from 'react';
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 import styled from 'styled-components';
 
 import ErrorMessage from './ErrorMessage';
+import { EyeClosed, EyeOpened, InputError } from '../../svg';
 
-const Input: FC<InputProps> = ({ register, rules, name, error, label, ...rest }) => {
+const Input: FC<InputProps> = ({ register, rules, name, error, label, isTypePassword = false, ...rest }) => {
+  const [isVisible, setIsVisible ] = useState<boolean>(true);
+  useEffect(() => {
+    if (isTypePassword) setIsVisible(false)
+  }, [isTypePassword])
+
+  const onShowClick = () => {
+    setIsVisible(true);
+  }
+  const onHideClick = () => {
+    setIsVisible(false);
+  }
+
   return (
     <Root error={error}>
       {label && <Label htmlFor={name}>{label}</Label>}
-      <Field {...register(name, rules)} {...rest} error={error} />
+      <Field {...register(name, rules)} {...rest} error={error} type={isVisible ? "text" : "password"}/>
       {error && <ErrorMessage>{error}</ErrorMessage>}
+      <IconsWrapper>
+        {isTypePassword ? isVisible ? <EyeOpened onClick={onHideClick} /> : <EyeClosed onClick={onShowClick} /> : null}
+        {error ? <InputError /> : null}
+      </IconsWrapper>
     </Root>
   );
 };
@@ -22,6 +39,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   register: RegisterType;
+  isTypePassword?: boolean;
 }
 
 interface InputStyledProps {
@@ -35,7 +53,18 @@ const Root = styled.div<InputStyledProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
 `;
+const IconsWrapper = styled.div`
+  display: flex;
+  gap: 12px;
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  cursor: pointer;
+  align-items: center;
+  height: 48px;
+`
 const Field = styled.input<InputStyledProps>`
   width: 100%;
   height: 48px;
