@@ -5,26 +5,47 @@ import styled from 'styled-components';
 import ErrorMessage from './ErrorMessage';
 import { EyeClosed, EyeOpened, InputError, InputSuccess } from '../../svg';
 
-const Input: FC<InputProps> = ({ register, rules, name, error, label, isTypePassword = false, isValid, ...rest }) => {
-  const [isVisible, setIsVisible ] = useState<boolean>(true);
+const Input: FC<InputProps> = ({
+  register,
+  rules,
+  name,
+  error,
+  label,
+  isTypePassword = false,
+  isValid,
+  ...rest
+}) => {
+  const [isVisible, setIsVisible] = useState<boolean>(true);
   useEffect(() => {
-    if (isTypePassword) setIsVisible(false)
-  }, [isTypePassword])
+    if (isTypePassword) setIsVisible(false);
+  }, [isTypePassword]);
 
   const onShowClick = () => {
     setIsVisible(true);
-  }
+  };
   const onHideClick = () => {
     setIsVisible(false);
-  }
+  };
 
   return (
     <Root error={error}>
       {label && <Label htmlFor={name}>{label}</Label>}
-      <Field {...register(name, rules)} {...rest} error={error} isValid={isValid} type={isVisible ? "text" : "password"}/>
+      <Field
+        {...register(name, rules)}
+        {...rest}
+        error={error}
+        isValid={isValid}
+        type={isVisible ? 'text' : 'password'}
+      />
       {error && <ErrorMessage>{error}</ErrorMessage>}
       <IconsWrapper>
-        {isTypePassword ? isVisible ? <EyeOpened onClick={onHideClick} /> : <EyeClosed onClick={onShowClick} /> : null}
+        {isTypePassword ? (
+          isVisible ? (
+            <EyeOpened onClick={onHideClick} />
+          ) : (
+            <EyeClosed onClick={onShowClick} />
+          )
+        ) : null}
         {error ? <InputError /> : isValid ? <InputSuccess /> : null}
       </IconsWrapper>
     </Root>
@@ -66,7 +87,7 @@ const IconsWrapper = styled.div`
   cursor: pointer;
   align-items: center;
   height: 48px;
-`
+`;
 const Field = styled.input<InputStyledProps>`
   width: 100%;
   height: 48px;

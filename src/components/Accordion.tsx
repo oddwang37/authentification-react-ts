@@ -14,7 +14,7 @@ const Accordion: FC<AccordionProps> = ({ title, children }) => {
     <Root onClick={switchIsOpened}>
       <Header>
         <Title>{title}</Title>
-        {isOpened ? <Hide /> : <Show /> }
+        {isOpened ? <Hide /> : <Show />}
       </Header>
       {isOpened ? <Content>{children}</Content> : null}
     </Root>
@@ -39,7 +39,7 @@ const Title = styled.div`
   @media (max-width: 576px) {
     width: 70%;
   }
-`
+`;
 
 const Header = styled.div`
   display: flex;

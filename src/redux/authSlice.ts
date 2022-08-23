@@ -56,7 +56,6 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(loginUser.pending, (state, action) => {});
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
@@ -66,15 +65,12 @@ export const authSlice = createSlice({
       localStorage.setItem('refreshToken', action.payload.refreshToken);
       state.isAuth = true;
     });
-    builder.addCase(loginUser.rejected, (state, action) => {});
-    builder.addCase(registerUser.pending, (state, action) => {});
     builder.addCase(registerUser.fulfilled, (state, action) => {
       state.userInfo = action.payload;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       console.log(action);
     });
-    builder.addCase(logoutUser.pending, () => {});
     builder.addCase(logoutUser.fulfilled, (state) => {
       state.accessToken = '';
       state.refreshToken = '';
@@ -84,14 +80,11 @@ export const authSlice = createSlice({
       localStorage.setItem('accessToken', '');
       localStorage.setItem('refreshToken', '');
     });
-    builder.addCase(logoutUser.rejected, () => {});
-    builder.addCase(checkAuth.pending, () => {});
     builder.addCase(checkAuth.fulfilled, (state, action) => {
       state.accessToken = action.payload.accessToken;
       localStorage.setItem('accessToken', action.payload.accessToken);
       state.isAuth = true;
     });
-    builder.addCase(checkAuth.rejected, (state, action) => {});
     builder.addCase(getUserInfo.fulfilled, (state, action) => {
       state.userInfo = action.payload;
     });
