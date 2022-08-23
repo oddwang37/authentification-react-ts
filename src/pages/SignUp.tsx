@@ -87,6 +87,7 @@ const SignUp = () => {
                     message: 'Неправильный email',
                   },
                 }}
+                isValid={isValid}
               />
               <Input
                 register={register}
@@ -103,6 +104,7 @@ const SignUp = () => {
                   },
                   required: 'Необходимо ввести пароль',
                 }}
+                isValid={isValid}
               />
               <Input
                 register={register}
@@ -118,6 +120,7 @@ const SignUp = () => {
                     }
                   },
                 }}
+                isValid={isValid}
               />
               <Button type="button" inactive={!isValid || !isDirty} onClick={completeFormStep}>Продолжить</Button>
             </SForm>
@@ -139,6 +142,7 @@ const SignUp = () => {
                 label="Имя"
                 placeholder="Введите имя"
                 rules={{ required: 'Введите имя' }}
+                isValid={isValid}
               />
               <Input
                 register={register}
@@ -147,6 +151,7 @@ const SignUp = () => {
                 label="Фамилия"
                 placeholder="Введите фамилию"
                 rules={{ required: 'Введите фамилию' }}
+                isValid={isValid}
               />
               <Input
                 register={register}
@@ -155,6 +160,7 @@ const SignUp = () => {
                 label="Телефон"
                 placeholder="+7 (333)-333-33-33"
                 rules={{ required: 'Введите номер телефона' }}
+                isValid={isValid}
               />
               <Button type="submit" onClick={onSubmit} inactive={!isValid}>Продолжить</Button>
             </SForm>

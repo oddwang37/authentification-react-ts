@@ -60,6 +60,7 @@ const SignIn = () => {
                 message: 'Неправильный email',
               },
             }}
+            isValid={isValid}
           />
           <Input
             register={register}
@@ -72,6 +73,7 @@ const SignIn = () => {
               required: 'Необходимо ввести пароль',
               minLength: { value: 6, message: 'Пароль должен состоять минимум из 6 символов' },
             }}
+            isValid={isValid}
           />
           <Button inactive={!isValid}>Продолжить</Button>
         </form>

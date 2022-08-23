@@ -8,6 +8,7 @@ import LeftArrow from './LeftArrow';
 import EyeClosed from './EyeClosed';
 import EyeOpened from './EyeOpened';
 import InputError from './InputError';
+import InputSuccess from './InputSuccess';
 
 
-export { Logo, Logout, Pencil, BannerIllustration, Show, Hide, LeftArrow, EyeClosed, EyeOpened, InputError };
+export { Logo, Logout, Pencil, BannerIllustration, Show, Hide, LeftArrow, EyeClosed, EyeOpened, InputError, InputSuccess };

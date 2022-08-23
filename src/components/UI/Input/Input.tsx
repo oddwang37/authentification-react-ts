@@ -3,9 +3,9 @@ import { UseFormRegister, FieldValues } from 'react-hook-form';
 import styled from 'styled-components';
 
 import ErrorMessage from './ErrorMessage';
-import { EyeClosed, EyeOpened, InputError } from '../../svg';
+import { EyeClosed, EyeOpened, InputError, InputSuccess } from '../../svg';
 
-const Input: FC<InputProps> = ({ register, rules, name, error, label, isTypePassword = false, ...rest }) => {
+const Input: FC<InputProps> = ({ register, rules, name, error, label, isTypePassword = false, isValid, ...rest }) => {
   const [isVisible, setIsVisible ] = useState<boolean>(true);
   useEffect(() => {
     if (isTypePassword) setIsVisible(false)
@@ -21,11 +21,11 @@ const Input: FC<InputProps> = ({ register, rules, name, error, label, isTypePass
   return (
     <Root error={error}>
       {label && <Label htmlFor={name}>{label}</Label>}
-      <Field {...register(name, rules)} {...rest} error={error} type={isVisible ? "text" : "password"}/>
+      <Field {...register(name, rules)} {...rest} error={error} isValid={isValid} type={isVisible ? "text" : "password"}/>
       {error && <ErrorMessage>{error}</ErrorMessage>}
       <IconsWrapper>
         {isTypePassword ? isVisible ? <EyeOpened onClick={onHideClick} /> : <EyeClosed onClick={onShowClick} /> : null}
-        {error ? <InputError /> : null}
+        {error ? <InputError /> : isValid ? <InputSuccess /> : null}
       </IconsWrapper>
     </Root>
   );
@@ -40,10 +40,12 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   register: RegisterType;
   isTypePassword?: boolean;
+  isValid: boolean;
 }
 
 interface InputStyledProps {
   error?: string;
+  isValid?: boolean;
 }
 
 type RegisterType = UseFormRegister<FieldValues>;
@@ -69,16 +71,20 @@ const Field = styled.input<InputStyledProps>`
   width: 100%;
   height: 48px;
   background-color: #f2f3f4;
-  border: ${(p) => (p.error ? '1px solid #f46666' : 'none')};
+  border: ${(p) => (p.error ? '1px solid #f46666' : p.isValid ? '1px solid #17bc77' : 'none')};
   border-radius: 12px;
   padding: 14px 20px;
   font-family: 'Gilroy';
   margin-bottom: ${(p) => (p.error ? 10 : 6)};
+  margin-top: 4px;
+  display: block;
   &::placeholder {
     color: #717583;
   }
-  margin-top: 4px;
-  display: block;
+  &:focus {
+    border: 1px solid #000;
+    outline: none;
+  }
 `;
 const Label = styled.label`
   font-size: 12px;
